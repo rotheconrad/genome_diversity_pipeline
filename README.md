@@ -1,2 +1,2 @@
-# genome_diversity_pipeline
+# genome diversity pipeline
  
