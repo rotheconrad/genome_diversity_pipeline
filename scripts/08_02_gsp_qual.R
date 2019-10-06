@@ -8,8 +8,7 @@ for(i in argv){
   b <- barplot(t(a), beside = TRUE,
     col = c('lightblue', 'darkblue', 'red3', 'darkred'),
     ylab = 'Quality', main = i)
-  abline(h = 50, lty = 3)
-  rect(min(b), 0, max(b), 50, border = 'black', col = rgb(0,0,0,1/2))
+  rect(1, 0, ceiling(max(b)), 50, border = 'black', col = rgb(0,0,0,1/3))
 }
 t <- dev.off()
 
