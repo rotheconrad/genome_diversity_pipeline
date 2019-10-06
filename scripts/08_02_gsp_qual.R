@@ -8,9 +8,11 @@ for(i in argv){
   b <- barplot(t(a), beside = TRUE,
     col = c('lightblue', 'darkblue', 'red3', 'darkred'),
     ylab = 'Quality', main = i)
-  rect(1, 0, ceiling(max(b)), 50, border = NA, col = rgb(1,1,1,1/2))
-  arrows(x0=1, x1=ceiling(max(b)), y0=c(0,50), y1=c(0,50), lty = c(1,3),
+  right.end <- ceiling(max(b))
+  rect(1, 0, right.end, 50, border = NA, col = rgb(1,1,1,3/4))
+  arrows(x0 = 1, x1 = right.end, y0 = c(0,50), y1 = c(0,50), lty = c(1,3),
     length = 0)
+  ablines(v = seq(1, right.end, by = nrow(b)+1), col = grey(1/2))
 }
 t <- dev.off()
 
