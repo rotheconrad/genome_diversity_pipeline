@@ -33,7 +33,7 @@ puts (['gsp'] + methods).join("\t")
 gspp.each_with_index do |gsp, k|
   rep = {}
   gsp.each do |mag|
-    next if q[mag] < 0
+    next if q[mag] < 30
     rep[method[mag]] ||= mag
     rep[method[mag]] = mag if q[mag] > q[rep[method[mag]]]
   end
