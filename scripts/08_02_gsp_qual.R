@@ -11,5 +11,5 @@ for(i in argv){
   abline(h = 50, lty = 3)
   rect(min(b), 0, max(b), 50, border = 'black', col = rgb(0,0,0,1/2))
 }
-dev.off()
+t <- dev.off()
 
