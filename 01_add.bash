@@ -29,7 +29,7 @@ if [[ -n $file2 ]] ; then
   let SIZE=$SIZE+$SIZE2
 fi
 let SIZE_G=$SIZE/1000000000
-let TIME_H=1+$SIZE_G
+let TIME_H=2+$SIZE_G
 qsub "$pkg/00_launcher.pbs" -N "GD02-$dataset" \
   -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=02_trim" \
   -l nodes=1:ppn=1 -l mem=50g -l "walltime=$TIME_H:00:00"
