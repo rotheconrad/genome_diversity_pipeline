@@ -6,7 +6,8 @@
 # - $TARGET: Path to the target location (could be relative)
 # - $DATASET: Name of the dataset to process
 # - $STEP: Step code to run within the package
+# - $RAM (optional): RAM limit for the software called
 
 cd "$PBS_O_WORKDIR"
-. "$PKG/${STEP}.bash" "$TARGET" "$DATASET"
+RAM="$RAM" "$PKG/${STEP}.bash" "$TARGET" "$DATASET"
 
