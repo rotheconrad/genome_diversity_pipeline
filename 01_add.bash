@@ -36,5 +36,5 @@ let TIME_H=2+$SIZE_G
 qsub "$pkg/00_launcher.pbs" -N "GD02-$dataset" \
   -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=02_trim" \
   -l nodes=1:ppn=1 -l mem=50g -l "walltime=$TIME_H:00:00" \
-  -o "xx_log/${dataset}.01.txt" -j eo
+  -o "xx_log/${dataset}.01.txt" -j oe
 

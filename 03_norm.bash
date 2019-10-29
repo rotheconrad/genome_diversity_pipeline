@@ -30,5 +30,5 @@ gzip -v 03_norm/${dataset}.[12].fastq
 qsub "$pkg/00_launcher.pbs" -N "GD04-$dataset" \
   -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=04_asm" \
   -l nodes=1:ppn=12 -l mem="200g" -l walltime="72:00:00"
-  -o "xx_log/${dataset}.02.txt" -j eo
+  -o "xx_log/${dataset}.02.txt" -j oe
 

@@ -34,5 +34,5 @@ let ram=1+$card*12/1000000000
 qsub "$pkg/00_launcher.pbs" -N "GD03-$dataset" \
   -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=03_norm,RAM=$ram" \
   -l nodes=1:ppn=5 -l mem="$(($ram+10))g" -l walltime="24:00:00"
-  -o "xx_log/${dataset}.02.txt" -j eo
+  -o "xx_log/${dataset}.02.txt" -j oe
 
