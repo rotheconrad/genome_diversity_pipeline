@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+#PBS -q microcluster
+
+# Variables:
+# - $PKG: Full path to the package location
+# - $TARGET: Path to the target location (could be relative)
+# - $DATASET: Name of the dataset to process
+# - $STEP: Step code to run within the package
+
+
+
