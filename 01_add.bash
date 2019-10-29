@@ -18,7 +18,6 @@ GDIV_PKG="$pkg" . "$pkg/00_env.bash"
 cp "$file1" "$target/01_reads/${dataset}.1.fastq.gz"
 [[ -n $file2 ]] && cp "$file2" "$target/01_reads/${dataset}.2.fastq.gz"
 
-cd "$target"
 SIZE=$(ls -pl "$target/01_reads/${dataset}.1.fastq.gz" | awk '{print $5}')
 if [[ -n $file2 ]] ; then
   SIZE2=$(ls -pl "$target/01_reads/${dataset}.2.fastq.gz" | awk '{print $5}')

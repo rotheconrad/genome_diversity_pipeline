@@ -9,5 +9,5 @@ fi
 
 mkdir -p "$target"
 cd "$target"
-mkdir 01_reads 02_trim 03_norm 04_asm 05_maxbin 06_metabat 07_derep
+mkdir -p 01_reads 02_trim 03_norm 04_asm 05_maxbin 06_metabat 07_derep
 
