@@ -8,5 +8,5 @@
 # - $STEP: Step code to run within the package
 
 cd "$PBS_O_WORKDIR"
-"$PKG/${STEP}.bash" "$TARGET" "$DATASET"
+. "$PKG/${STEP}.bash" "$TARGET" "$DATASET"
 

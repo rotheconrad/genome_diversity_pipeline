@@ -19,18 +19,22 @@ fi
 
 GDIV_PKG="$pkg" . "$pkg/00_env.bash"
 
-"$pkg/00_build.bash" "$target"
-cp "$file1" "$target/01_reads/${dataset}.1.fastq.gz"
-[[ -n $file2 ]] && cp "$file2" "$target/01_reads/${dataset}.2.fastq.gz"
+cd "$target"
+"$pkg/00_build.bash" "."
+cp "$file1" "01_reads/${dataset}.1.fastq.gz"
+[[ -n $file2 ]] && cp "$file2" "01_reads/${dataset}.2.fastq.gz"
 
-SIZE=$(ls -pl "$target/01_reads/${dataset}.1.fastq.gz" | awk '{print $5}')
+SIZE=$(ls -pl "01_reads/${dataset}.1.fastq.gz" | awk '{print $5}')
 if [[ -n $file2 ]] ; then
-  SIZE2=$(ls -pl "$target/01_reads/${dataset}.2.fastq.gz" | awk '{print $5}')
+  SIZE2=$(ls -pl "01_reads/${dataset}.2.fastq.gz" | awk '{print $5}')
   let SIZE=$SIZE+$SIZE2
 fi
 let SIZE_G=$SIZE/1000000000
 let TIME_H=2+$SIZE_G
+
+# Launch next step
 qsub "$pkg/00_launcher.pbs" -N "GD02-$dataset" \
   -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=02_trim" \
-  -l nodes=1:ppn=1 -l mem=50g -l "walltime=$TIME_H:00:00"
+  -l nodes=1:ppn=1 -l mem=50g -l "walltime=$TIME_H:00:00" \
+  -o "xx_log/${dataset}.01.txt" -j eo
 

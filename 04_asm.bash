@@ -40,7 +40,7 @@ for i in 0[23]_*/"$dataset".*.fa ; do
   dir="${base}.d"
   rd="r"
   [[ "$i" == *.single.fa.gz ]] && rd="l"
-  idba_ud --pre_correction -o "$dir" -$rd "$i"
+  idba_ud --pre_correction -o "$dir" -$rd "$i" --num_threads 12
   # link result
   if [[ -s "$dir/scaffold.fa" ]] ; then
     ln "$dir/scaffold.fa" "${base}.AllContigs.fna"
@@ -55,4 +55,7 @@ for i in 0[23]_*/"$dataset".*.fa ; do
   rm "${base}.AllContigs.fna"
   rm -r "$dir"
 done
+
+# Launch next step
+# TODO
 

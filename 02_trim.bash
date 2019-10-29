@@ -25,9 +25,14 @@ cmd="$cmd ktrim=l qtrim=w,3 trimq=17 minlength=50 ref='$pkg/adapters.fa' tbo \
   tossjunk=t cardinalityout=t -Xmx50g"
 echo "RUNNING BBDuk:"
 echo "$cmd"
-$cmd
+$cmd 2> 02_trim/${dataset}.log
 gzip -v 02_trim/${dataset}.[12].fastq
-#qsub "$pkg/00_launcher.pbs" -N "GD03-$dataset" \
-#  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=03_norm" \
-#  -l nodes=1:ppn=1 -l mem=50g -l walltime=$TIME_H:00:00
+card=$(grep 'Unique 31-mers out:' "02_trim/${dataset}.log" | cut -f 2)
+let ram=1+$card*12/1000000000
+
+# Launch next step
+qsub "$pkg/00_launcher.pbs" -N "GD03-$dataset" \
+  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=03_norm,RAM=$ram" \
+  -l nodes=1:ppn=5 -l mem="$(($ram+10))g" -l walltime="24:00:00"
+  -o "xx_log/${dataset}.02.txt" -j eo
 
