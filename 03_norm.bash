@@ -6,7 +6,10 @@ scr=$(readlink -f "$0")
 pkg=$(dirname "$scr")
 
 if [[ ! -n $target || ! -n $dataset ]] ; then
-  echo "Usage: $0 target_folder dataset"
+  echo "Usage: $0 target_folder dataset
+  target_folder Path to the target folder containing the data
+  dataset       Name of the dataset to process
+  "
   exit 0
 fi
 

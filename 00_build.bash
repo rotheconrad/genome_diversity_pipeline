@@ -3,7 +3,9 @@
 target=$1
 
 if [[ ! -n $target ]] ; then
-  echo "Usage: $0 target_folder"
+  echo "Usage: $0 target_folder
+  target_folder: Path to the target folder to create
+  "
   exit 0
 fi
 

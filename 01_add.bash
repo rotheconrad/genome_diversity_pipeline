@@ -4,11 +4,16 @@ target=$1
 dataset=$2
 file1=$3
 file2=$4
-scr=$(readlink -f "$0")
+scr=$(readlink -f "$0" 2>/dev/null)
 pkg=$(dirname "$scr")
 
 if [[ ! -n $target || ! -n $dataset || ! -n $file1 ]] ; then
-  echo "Usage: $0 target_folder dataset file1 [file2]"
+  echo "Usage: $0 target_folder dataset file1 [file2]
+  target_folder    Path to the target folder containing the data
+  dataset          Name of the dataset to create
+  file1            Path to the FWD (or unpaired) reads, in .fastq.gz format
+  file2 (optional) Path to the REV reads, in .fastq.gz format
+  "
   exit 0
 fi
 
