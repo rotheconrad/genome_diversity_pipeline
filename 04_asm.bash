@@ -40,7 +40,7 @@ for i in 0[23]*_*/"$dataset".*.fa ; do
   dir="${base}.d"
   rd="r"
   [[ "$i" == *.single.fa.gz ]] && rd="l"
-  idba_ud -o "$dir" -$rd "$i" --num_threads 12 --maxk 120
+  idba_ud -o "$dir" -$rd "$i" --num_threads 24 --maxk 120
   # link result
   if [[ -s "$dir/scaffold.fa" ]] ; then
     ln "$dir/scaffold.fa" "${base}.AllContigs.fna"
