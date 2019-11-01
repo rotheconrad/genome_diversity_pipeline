@@ -21,7 +21,7 @@ if [[ -s "01_reads/${dataset}.2.fastq.gz" ]] ; then
   cmd="$cmd in2='01_reads/${dataset}.2.fastq.gz' \
     out2='02_trim/${dataset}.2.fastq'"
 fi
-cmd="$cmd ktrim=l qtrim=w,3 trimq=17 minlength=50 ref='$pkg/adapters.fa' tbo \
+cmd="$cmd qtrim=w,3 trimq=17 minlength=70 ref='$pkg/adapters.fa' tbo \
   tossjunk=t cardinalityout=t -Xmx50g"
 echo "RUNNING BBDuk:"
 echo "$cmd"

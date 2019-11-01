@@ -34,13 +34,13 @@ for i in 0[23]_*/"$dataset".1.fastq.gz.fa_tmp ; do
   mv "$i" "$d/${dataset}.single.fa"
 done
 # assemble
-for i in 0[23]_*/"$dataset".*.fa ; do
+for i in 0[23]*_*/"$dataset".*.fa ; do
   var=$(echo "$(dirname "$i")" | perl -pe 's/^\d+_//')
   base="04_asm/${dataset}-${var}"
   dir="${base}.d"
   rd="r"
   [[ "$i" == *.single.fa.gz ]] && rd="l"
-  idba_ud --pre_correction -o "$dir" -$rd "$i" --num_threads 12
+  idba_ud -o "$dir" -$rd "$i" --num_threads 12 --maxk 120
   # link result
   if [[ -s "$dir/scaffold.fa" ]] ; then
     ln "$dir/scaffold.fa" "${base}.AllContigs.fna"
