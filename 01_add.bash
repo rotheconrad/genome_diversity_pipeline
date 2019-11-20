@@ -19,7 +19,7 @@ fi
 
 GDIV_PKG="$pkg" . "$pkg/00_env.bash"
 
-"$pkg/00_build.bash" "."
+"$pkg/00_build.bash" "$target"
 cp "$file1" "$target/01_reads/${dataset}.1.fastq.gz"
 [[ -n $file2 ]] && cp "$file2" "$target/01_reads/${dataset}.2.fastq.gz"
 cd "$target"
