@@ -34,6 +34,13 @@ for asm in trim norm ; do
     -i "04_asm/${dataset}-${asm}.LargeContigs.fna" \
     -a "${out}.abd" \
     -o "$out" \
-    -t 4
+    -t 12
 done
+
+# Launch next step
+qsub "$pkg/00_launcher.pbs" -N "GD07-$dataset" \
+  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=07_derep" \
+  -l nodes=1:ppn=12 -l mem="24g" -l walltime="90:00:00" \
+  -o "xx_log/${dataset}.07.txt" -j oe
+
 

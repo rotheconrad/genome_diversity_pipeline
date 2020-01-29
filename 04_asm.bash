@@ -57,5 +57,9 @@ for i in 0[23]*_*/"$dataset".*.fa ; do
 done
 
 # Launch next step
-# TODO
+qsub "$pkg/00_launcher.pbs" -N "GD05-$dataset" \
+  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=05_maxbin" \
+  -l nodes=1:ppn=12 -l mem="240g" -l walltime="90:00:00" \
+  -o "xx_log/${dataset}.05.txt" -j oe
+
 

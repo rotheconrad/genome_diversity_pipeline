@@ -24,7 +24,14 @@ for asm in trim norm ; do
     -contig "04_asm/${dataset}-${asm}.LargeContigs.fna" \
     -reads  "02_trim/${dataset}.coupled.fa" \
     -out    "$out" \
-    -thread 4 \
+    -thread 12 \
     -preserve_intermediate
 done
+
+# Launch next step
+qsub "$pkg/00_launcher.pbs" -N "GD06-$dataset" \
+  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=06_metabat" \
+  -l nodes=1:ppn=12 -l mem="120g" -l walltime="90:00:00" \
+  -o "xx_log/${dataset}.06.txt" -j oe
+
 

@@ -16,12 +16,14 @@ fi
 . "$pkg/00_env.bash"
 cd "$target"
 dir="07_derep/$dataset"
-miga new -P "$dir" -t genomes -m aai_p=diamond,ani_p=fastani
-miga add -P "$dir" -t popgenome -m run_mytaxa_scan=false -i assembly \
+miga new -P "$dir" -t genomes
+miga add -P "$dir" -t popgenome -i assembly \
   -R '^(?:.*\/)?(.+?)(?i:\.f[nastq]+)?$' \
   --prefix maxbin_ -v 05_maxbin/"$dataset"-*/*.fasta
-miga add -P "$dir" -t popgenome -m run_mytaxa_scan=false -i assembly \
+miga add -P "$dir" -t popgenome -i assembly \
   -R '^(?:.*\/)?(.+?)(?i:\.f[nastq]+)?$' \
   --prefix metabat_ -v 06_metabat/"$dataset"-*/*.fa
-$HOME/shared3/miga-conf/start-node "$dir"
+miga derep_wf -o "$dir" --fast -j 12 -t 1 -v \
+  --daemon "$HOME/shared3/miga-conf/daemon_bash.json"
+
 
