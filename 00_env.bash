@@ -15,6 +15,8 @@ if [[ $GDIV_ENV != 1 ]] ; then
     ln -s "$GDIV_CONDA" "$HOME/.conda/envs/genome_diversity"
   fi
   source activate genome_diversity
+  shared3="$HOME/shared3"
+  export PATH="$shared3/apps/enveomics/Scripts:$shared3/bin:$shared3/miga/bin:$PATH"
   export GDIV_ENV=1
 fi
 
