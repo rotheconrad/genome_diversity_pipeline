@@ -15,6 +15,7 @@ fi
 
 . "$pkg/00_env.bash"
 cd "$target"
+
 for asm in trim norm ; do
   dir="05_maxbin/${dataset}-${asm}.d"
   out="$dir/${dataset}-${asm}"
@@ -29,9 +30,4 @@ for asm in trim norm ; do
 done
 
 # Launch next step
-qsub "$pkg/00_launcher.pbs" -N "GD06-$dataset" \
-  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=06_metabat" \
-  -l nodes=1:ppn=12 -l mem="120g" -l walltime="90:00:00" \
-  -o "xx_log/${dataset}.06.txt" -j oe
-
-
+"$pkg/00_launcher.bash" . "$dataset" 06

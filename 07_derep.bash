@@ -15,6 +15,7 @@ fi
 
 . "$pkg/00_env.bash"
 cd "$target"
+
 dir="07_derep/$dataset"
 miga new -P "$dir" -t genomes
 miga add -P "$dir" -t popgenome -i assembly \
@@ -26,4 +27,5 @@ miga add -P "$dir" -t popgenome -i assembly \
 miga derep_wf -o "$dir" --fast -j 12 -t 1 -v \
   --daemon "$HOME/shared3/miga-conf/daemon_bash.json"
 
-
+# Launch next step
+"$pkg/00_launcher.bash" . "$dataset" 08

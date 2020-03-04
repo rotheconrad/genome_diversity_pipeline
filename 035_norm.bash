@@ -13,9 +13,10 @@ if [[ ! -n $target || ! -n $dataset ]] ; then
   exit 0
 fi
 
-. "$pkg/00_env.bash"
 RAM=${RAM:-}
+. "$pkg/00_env.bash"
 cd "$target"
+
 cmd="bbnorm.sh in='02_trim/${dataset}.1.fastq.gz' \
   out='035_norm/${dataset}.1.fastq'"
 if [[ -s "02_trim/${dataset}.2.fastq.gz" ]] ; then
@@ -27,8 +28,4 @@ $cmd
 gzip -v 035_norm/${dataset}.[12].fastq
 
 # Launch next step
-qsub "$pkg/00_launcher.pbs" -N "GD04-$dataset" \
-  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=04_asm" \
-  -l nodes=1:ppn=24 -l mem="240g" -l walltime="240:00:00" \
-  -o "xx_log/${dataset}.04.txt" -j oe
-
+"$pkg/00_launcher.bash" . "$dataset" 04

@@ -13,8 +13,9 @@ if [[ ! -n $target || ! -n $dataset ]] ; then
   exit 0
 fi
 
-GDIV_PKG="$pkg" . "$pkg/00_env.bash"
+. "$pkg/00_env.bash"
 cd "$target"
+
 cmd="bbduk.sh in='01_reads/${dataset}.1.fastq.gz' \
   out='02_trim/${dataset}.1.fastq'"
 if [[ -s "01_reads/${dataset}.2.fastq.gz" ]] ; then
@@ -27,12 +28,6 @@ echo "RUNNING BBDuk:"
 echo "$cmd"
 $cmd 2> 02_trim/${dataset}.log
 gzip -v 02_trim/${dataset}.[12].fastq
-card=$(grep 'Unique 31-mers out:' "02_trim/${dataset}.log" | cut -f 2)
-let ram=1+$card*12/1000000000
 
 # Launch next step
-qsub "$pkg/00_launcher.pbs" -N "GD03-$dataset" \
-  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=03_norm,RAM=$ram" \
-  -l nodes=1:ppn=5 -l mem="$(($ram+10))g" -l walltime="24:00:00" \
-  -o "xx_log/${dataset}.02.txt" -j oe
-
+"$pkg/00_launcher.bash" . "$dataset" 03

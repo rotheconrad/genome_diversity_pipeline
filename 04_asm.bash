@@ -15,10 +15,12 @@ fi
 
 . "$pkg/00_env.bash"
 cd "$target"
+
 # fq -> fa
 for i in 0[23]_*/"$dataset".[12].fastq.gz ; do
   gzip -c -d "$i" | awk -f "$(which FastQ.toFastA.awk)" > "${i}.fa_tmp"
 done
+
 # paired
 for i in 0[23]_*/"$dataset".2.fastq.gz.fa_tmp ; do
   [[ -s "$i" ]] || continue
@@ -27,12 +29,14 @@ for i in 0[23]_*/"$dataset".2.fastq.gz.fa_tmp ; do
     "$d/${dataset}".[12].fastq.gz.fa_tmp
   rm "$d/${dataset}".[12].fastq.gz.fa_tmp
 done
+
 # single
 for i in 0[23]_*/"$dataset".1.fastq.gz.fa_tmp ; do
   [[ -s "$i" ]] || continue
   d=$(dirname "$i")
   mv "$i" "$d/${dataset}.single.fa"
 done
+
 # assemble
 for i in 0[23]*_*/"$dataset".*.fa ; do
   var=$(echo "$(dirname "$i")" | perl -pe 's/^\d+_//')
@@ -57,9 +61,4 @@ for i in 0[23]*_*/"$dataset".*.fa ; do
 done
 
 # Launch next step
-qsub "$pkg/00_launcher.pbs" -N "GD05-$dataset" \
-  -v "PKG=$pkg,TARGET=$target,DATASET=$dataset,STEP=05_maxbin" \
-  -l nodes=1:ppn=12 -l mem="240g" -l walltime="90:00:00" \
-  -o "xx_log/${dataset}.05.txt" -j oe
-
-
+"$pkg/00_launcher.bash" . "$dataset" 05
