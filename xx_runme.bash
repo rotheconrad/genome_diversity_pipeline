@@ -15,7 +15,7 @@ if [[ ! -n $target || ! -n $dataset ]] ; then
 fi
 
 . "$pkg/00_env.bash"
-"$pkg/01_build.bash" "$target"
+"$pkg/00_build.bash" "$target"
 cd "$target"
 
 if [[ ! -s "01_reads/${dataset}.1.fastq.gz" ]] ; then
