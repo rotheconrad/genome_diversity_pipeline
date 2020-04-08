@@ -24,8 +24,9 @@ elif [[ ! -s "02_trim/${dataset}.1.fastq.gz" ]] ; then
   next_step=02
 elif [[ ! -s "03_norm/${dataset}.1.fastq.gz" ]] ; then
   next_step=03
-elif [[ ! -s "035_norm/${dataset}.1.fastq.gz" ]] ; then
-  next_step=035
+# Do no run 035, just a temporary test
+#elif [[ ! -s "035_norm/${dataset}.1.fastq.gz" ]] ; then
+#  next_step=035
 elif [[ ! -s "04_asm/${dataset}-norm.LargeContigs.fna" ]] ; then
   next_step=04
 elif [[ ! -s "05_maxbin/${dataset}-norm.d/${dataset}-norm.summary" ]] ; then

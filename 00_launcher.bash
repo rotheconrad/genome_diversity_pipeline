@@ -98,7 +98,7 @@ function launch_step_07 {
 
   qsub "$pkg/00_launcher.pbs" -N "GD07-$dataset" \
     -v "PKG=$pkg,TARGET=$PWD,DATASET=$dataset,STEP=07_derep" \
-    -l nodes=1:ppn=12 -l mem="24g" -l walltime="90:00:00" \
+    -l nodes=1:ppn=12 -l mem="12g" -l walltime="24:00:00" \
     -o "xx_log/${dataset}.07.txt" -j oe
 }
 

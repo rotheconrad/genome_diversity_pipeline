@@ -23,7 +23,7 @@ if [[ -s "02_trim/${dataset}.2.fastq.gz" ]] ; then
   cmd="$cmd in2='02_trim/${dataset}.2.fastq.gz' \
     out2='035_norm/${dataset}.2.fastq'"
 fi
-cmd="$cmd target=30 threads=3 prefilter=t -Xmx${RAM}g"
+cmd="$cmd target=30 min=2 threads=3 prefilter=t -Xmx${RAM}g"
 $cmd
 gzip -v 035_norm/${dataset}.[12].fastq
 
