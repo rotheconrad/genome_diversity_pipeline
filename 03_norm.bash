@@ -13,7 +13,7 @@ if [[ ! -n $target || ! -n $dataset ]] ; then
   exit 0
 fi
 
-RAM=${RAM:-}
+RAM=${RAM:-100} # Use 100g if RAM is not given
 . "$pkg/00_env.bash"
 cd "$target"
 

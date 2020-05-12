@@ -4,6 +4,36 @@ function cardinality {
   grep 'Unique 31-mers out:' "02_trim/${1}.log" | cut -f 2
 }
 
+function size_xx {
+  SIZE=0
+  for i in $@ ; do
+    [[ -s "$i" ]] || continue
+    let SIZE=$SIZE+$(file_size "$i")
+  done
+  echo $SIZE
+}
+
+function arithm {
+  perl -e "print int($1)"
+}
+
+function size_01 {
+  size_xx "01_reads/${1}.1.fastq.gz" "01_reads/${1}.2.fastq.gz"
+}
+
+function size_02 {
+  size_xx "02_trim/${1}.1.fastq.gz" "02_trim/${1}.2.fastq.gz"
+}
+
+function size_03 {
+  size_xx "03_norm/${1}.1.fastq.gz" "03_norm/${1}.2.fastq.gz"
+}
+
+function size_04 {
+  size_xx \
+    "04_asm/${1}-norm.LargeContigs.fna" "04_asm/${1}-trim.LargeContigs.fna"
+}
+
 function file_size {
   if [[ -e "$1" ]] ; then
     ls -pl "$1" | awk '{print $5}'
@@ -27,6 +57,6 @@ function run_stats {
     wallt=$(time_to_minutes "$(echo "$rsrc"| perl -pe 's/.*walltime=(.+)/$1/')")
     mem=$(echo "$rsrc" | perl -pe 's/.*mem=(.+?)kb,.*/$1/')
   fi
-  echo -e "$cput\t$wallt\t$mem"
+  echo -e "$mem\t$wallt\t$cput"
 }
 

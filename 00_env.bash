@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $GDIV_ENV != 1 ]] ; then
+if [[ $GDIV_ENV != 2 ]] ; then
   module purge
   module load idba/1.1.1_kMSS 
   module load R/3.6.0 
@@ -16,7 +16,10 @@ if [[ $GDIV_ENV != 1 ]] ; then
   fi
   source activate genome_diversity
   shared3="$HOME/shared3"
+  # Add standard group tools to the path
   export PATH="$shared3/apps/enveomics/Scripts:$shared3/bin:$shared3/miga/bin:$PATH"
-  export GDIV_ENV=1
+  # Add Roth's FastA scripts to the path
+  export PATH="$shared3/apps/rotheconrad_scripts/Fasta:$PATH"
+  export GDIV_ENV=2
 fi
 

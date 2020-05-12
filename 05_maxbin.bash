@@ -21,9 +21,12 @@ for asm in trim norm ; do
   out="$dir/${dataset}-${asm}"
   mkdir -p "$dir"
   #[[ -d "$dir" ]] && continue
+  reads="02_trim/${dataset}.single.fa"
+  [[ -e "02_trim/${dataset}.coupled.fa" ]] \
+    && reads="02_trim/${dataset}.coupled.fa"
   "$HOME/shared3/apps/MaxBin-2.2.7/run_MaxBin.pl" \
     -contig "04_asm/${dataset}-${asm}.LargeContigs.fna" \
-    -reads  "02_trim/${dataset}.coupled.fa" \
+    -reads  "$reads" \
     -out    "$out" \
     -thread 12 \
     -preserve_intermediate

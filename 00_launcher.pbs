@@ -7,7 +7,8 @@
 # - $DATASET: Name of the dataset to process
 # - $STEP: Step code to run within the package
 # - $RAM (optional): RAM limit for the software called
+# - $USE_FRACTION (optional): Fraction of the input reads to use
 
 cd "$PBS_O_WORKDIR"
-RAM="$RAM" "$PKG/${STEP}.bash" "$TARGET" "$DATASET"
+RAM="$RAM" USE_FRACTION="$USE_FRACTION" "$PKG/${STEP}.bash" "$TARGET" "$DATASET"
 
