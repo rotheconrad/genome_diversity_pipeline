@@ -108,6 +108,7 @@ for i in 0[23]*_*/"$dataset".*.fa ; do
   # cleanup
   rm "${base}.AllContigs.fna"
   rm -r "$dir"
+  rm "${dir}.fa"
 done
 
 # Launch next step

@@ -41,7 +41,7 @@ function launch_step_04 {
   C02=$(cardinality "$dataset")
   RAM_G=$(arithm "10+$C02*73/1e9")
   S02=$(size_02 "$dataset")
-  TIME_H=$(arithm "2+$S02*4/1e9")
+  TIME_H=$(arithm "4+$S02*4/1e9")
   USE_FRACTION=1
   if [[ $RAM_G -gt 500 ]] ; then
     USE_FRACTION=$(perl -e "print 500/$RAM_G") # <- Hoping it's linear!
@@ -61,8 +61,8 @@ function launch_step_05 {
 
   # Determine time and RAM
   S03=$(size_03 "$dataset")
-  RAM_G=$(arithm "1+0.2*$S03/1e9")
-  TIME_H=$(arithm "1+1.5*$S03/1e9")
+  RAM_G=$(arithm "3+0.2*$S03/1e9")
+  TIME_H=$(arithm "3+1.5*$S03/1e9")
 
   # Launch
   qsub "$pkg/00_launcher.pbs" -N "GD05-$dataset" \
