@@ -42,5 +42,9 @@ for genome in cat 07_derep/${dataset}/*.LargeContigs.fna ; do
     | samtools sort -@ 12 -o "$dir/${genome}.bam" -
 done
 
+for i in $dir/*.anir-95.txt ; do
+  echo -e "$(basename "$i" .anir-95.txt)\t$(grep ANIr "$i")"
+done > $dir/anir-95.tsv
+
 # Launch next step
 "$pkg/00_launcher.bash" . "$dataset" 09

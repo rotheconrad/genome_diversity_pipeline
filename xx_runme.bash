@@ -35,6 +35,8 @@ elif [[ ! -s "06_metabat/${dataset}-norm.d/${dataset}-norm.1.fa" ]] ; then
   next_step=06
 elif [[ ! -s "07_derep/${dataset}/genomospecies.tsv" ]] ; then
   next_step=07
+elif [[ ! -s "08_anir/${dataset}/anir-95.tsv" ]] ; then
+  next_step=08
 else
   next_step=XX
 fi
