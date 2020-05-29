@@ -25,6 +25,8 @@ if [[ ! -n $datasets ]] ; then
 fi
 
 for dataset in $datasets ; do
+  echo $dataset
+
   # Determine the next step
   if [[ ! -s "01_reads/${dataset}.1.fastq.gz" ]] ; then
     next_step=01
