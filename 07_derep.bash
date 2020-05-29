@@ -26,6 +26,7 @@ miga add -P "$dir" -t popgenome -i assembly \
   --prefix metabat_ -v 06_metabat/"$dataset"-*/*.fa
 miga derep_wf -o "$dir" --fast -j 12 -t 1 -v \
   --daemon "$HOME/shared3/miga-conf/daemon_bash.json"
+"$pkg/07_01_gsp_qual.rb" "$dir" > "$dir/method_qual.tsv"
 
 # Launch next step
 "$pkg/00_launcher.bash" . "$dataset" 08

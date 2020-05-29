@@ -103,9 +103,23 @@ function launch_step_07 {
     -o "xx_log/${dataset}.07.txt" -j oe
 }
 
-# Launch step 08: Not yet implemented
+# Launch step 08: ANIr
 function launch_step_08 {
-  echo "STEP 08: NOT YET IMPLEMENTED" >&2
+  local dataset=$1
+
+  # No data yet to determine time or RAM
+  RAM_G=30
+  TIME_H=72
+
+  qsub "$pkg/00_launcher.pbs" -N "GD08-$dataset" \
+    -v "PKG=$pkg,TARGET=$PWD,DATASET=$dataset,STEP=08_anir" \
+    -l nodes=1:ppn=12 -l mem="${RAM_G}g" -l walltime="${TIME_H}:00:00" \
+    -o "xx_log/${dataset}.07.txt" -j oe
+}
+
+# Launch step 09: Not yet implemented
+function launch_step_09 {
+  echo "STEP 09: NOT YET IMPLEMENTED" >&2
 }
 
 # Source code

@@ -17,7 +17,8 @@ if [[ $GDIV_ENV != 2 ]] ; then
   source activate genome_diversity
   shared3="$HOME/shared3"
   # Add standard group tools to the path
-  export PATH="$shared3/apps/enveomics/Scripts:$shared3/bin:$shared3/miga/bin:$PATH"
+  export PATH="$shared3/miga/bin:$PATH"
+  export PATH="$shared3/apps/enveomics/Scripts:$shared3/bin:$PATH"
   # Add Roth's FastA scripts to the path
   export PATH="$shared3/apps/rotheconrad_scripts/Fasta:$PATH"
   export GDIV_ENV=2
