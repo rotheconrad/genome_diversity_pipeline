@@ -18,7 +18,7 @@ cd "$target"
 
 dir="08_anir/$dataset"
 mkdir -p "$dir"
-for genome in cat 07_derep/${dataset}/*.LargeContigs.fna ; do
+for genome in 07_derep/${dataset}/*.LargeContigs.fna ; do
   name=$(basename "$genome" .LargeContigs.fna)
   reads="single"
   reads_file="02_trim/${dataset}.single.fa"
