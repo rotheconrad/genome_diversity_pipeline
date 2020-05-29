@@ -12,11 +12,11 @@ gspp = File.readlines(gspp_path).map { |i| i.chomp.split(',') }
 
 # Load quality estimates
 q = {}
-p.each_dataset do |name, dataset|
+p.each_dataset do |dataset|
   begin
-    q[name] = dataset.result(:essential_genes)[:stats][:quality]
+    q[dataset.name] = dataset.result(:essential_genes)[:stats][:quality]
   rescue
-    abort "Cannot load quality estimate for #{name}"
+    abort "Cannot load quality estimate for #{dataset.name}"
   end
 end
 
