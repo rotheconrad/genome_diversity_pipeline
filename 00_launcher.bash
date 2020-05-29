@@ -114,7 +114,7 @@ function launch_step_08 {
   qsub "$pkg/00_launcher.pbs" -N "GD08-$dataset" \
     -v "PKG=$pkg,TARGET=$PWD,DATASET=$dataset,STEP=08_anir" \
     -l nodes=1:ppn=12 -l mem="${RAM_G}g" -l walltime="${TIME_H}:00:00" \
-    -o "xx_log/${dataset}.07.txt" -j oe
+    -o "xx_log/${dataset}.08.txt" -j oe
 }
 
 # Launch step 09: Not yet implemented
