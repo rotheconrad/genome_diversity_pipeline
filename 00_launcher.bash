@@ -77,7 +77,7 @@ function launch_step_06 {
 
   # Determine time by read size
   S04=$(size_04 "$dataset")
-  RAM_H=10
+  RAM_G=10
   TIME_H=$(arithm "2+15*$S04")
 
   # Launch
