@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
 
 argv <- commandArgs(trailingOnly = TRUE)
-pdf('08_02_gsp_qual.pdf', 7, 5 + length(argv))
+pdf(argv[1], 7, 5 + length(argv))
 layout(matrix(1:(length(argv)*2), byrow = TRUE, ncol = 2), widths = c(3, 1))
 col <- c('lightblue', 'darkblue', 'red3', 'darkred')
-for(i in argv){
+for(i in argv[-1]){
   # Gspp
   a <- read.table(i, sep = '\t', header = TRUE, row.names = 1)
   b <- barplot(t(a), beside = TRUE, las = 1,
