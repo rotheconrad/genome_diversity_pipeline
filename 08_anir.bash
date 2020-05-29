@@ -32,14 +32,14 @@ for genome in 07_derep/${dataset}/*.LargeContigs.fna ; do
   # SAM file produced by the first one.
   for identity in 90 95 97.5 ; do
     anir.rb -g "$genome" -r "$reads_file" --r-type "$reads" \
-      -m "$dir/${genome}.sam" -t 12 -a fix -i "$identity" \
-      -L "$dir/${genome}.identity.txt" \
-      > "$dir/${genome}.anir-${identity}.txt"
+      -m "$dir/${name}.sam" -t 12 -a fix -i "$identity" \
+      -L "$dir/${name}.identity.txt" \
+      > "$dir/${name}.anir-${identity}.txt"
   done
 
   # Compress to BAM and sort it
-  samtools view -b "$dir/${genome}.sam" -@ 12 \
-    | samtools sort -@ 12 -o "$dir/${genome}.bam" -
+  samtools view -b "$dir/${name}.sam" -@ 12 \
+    | samtools sort -@ 12 -o "$dir/${name}.bam" -
 done
 
 for i in $dir/*.anir-95.txt ; do
