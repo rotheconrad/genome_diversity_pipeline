@@ -34,7 +34,7 @@ for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
     anir.rb -g "$genome" -r "$reads_file" --r-type "$reads" --r-format fastq \
       -m "$dir/${name}.sam" -t 12 -a fix -i "$identity" \
       -L "$dir/${name}.identity.txt" \
-      > "$dir/${name}.anir-${identity}.txt"
+      --tab "$dir/${name}.anir-${identity}.tsv"
   done
 
   # Compress to BAM and sort it
@@ -43,7 +43,7 @@ for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
 done
 
 for i in $dir/*.anir-95.txt ; do
-  echo -e "$(basename "$i" .anir-95.txt)\t$(grep ANIr "$i")"
+  echo -e "$(basename "$i" .anir-95.txt)\t$(tail -n 1 "$i")"
 done > $dir/anir-95.tsv
 
 # Launch next step
