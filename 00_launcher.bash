@@ -78,7 +78,7 @@ function launch_step_06 {
   # Determine time by read size
   S04=$(size_04 "$dataset")
   RAM_G=10
-  TIME_H=$(arithm "2+15*$S04")
+  TIME_H=$(arithm "2+15*$S04/1e9")
 
   # Launch
   qsub "$pkg/00_launcher.pbs" -N "GD06-$dataset" \

@@ -18,20 +18,20 @@ cd "$target"
 
 dir="08_anir/$dataset"
 mkdir -p "$dir"
-for genome in 07_derep/${dataset}/*.LargeContigs.fna ; do
+for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
   name=$(basename "$genome" .LargeContigs.fna)
   reads="single"
-  reads_file="02_trim/${dataset}.single.fa"
-  if [[ ! -e "$reads_file" ]] ; then
-    reads="interleaved"
-    reads_file="02_trim/${dataset}.coupled.fa"
+  reads_file="02_trim/${dataset}.1.fastq.gz"
+  if [[ -e "02_trim/${dataset}.2.fastq.gz" ]] ; then
+    reads="coupled"
+    reads_file="${reads_file},02_trim/${dataset}.2.fastq.gz"
   fi
 
   # Run ANIr at different thresholds. Note that only the first
   # will run bowtie, all subsequent calls will simply reread the
   # SAM file produced by the first one.
   for identity in 90 95 97.5 ; do
-    anir.rb -g "$genome" -r "$reads_file" --r-type "$reads" \
+    anir.rb -g "$genome" -r "$reads_file" --r-type "$reads" --r-format fastq \
       -m "$dir/${name}.sam" -t 12 -a fix -i "$identity" \
       -L "$dir/${name}.identity.txt" \
       > "$dir/${name}.anir-${identity}.txt"
