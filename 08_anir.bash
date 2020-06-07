@@ -18,28 +18,39 @@ cd "$target"
 
 dir="08_anir/$dataset"
 mkdir -p "$dir"
+
+# Compile database
 for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
   name=$(basename "$genome" .LargeContigs.fna)
-  reads="single"
-  reads_file="02_trim/${dataset}.1.fastq.gz"
-  if [[ -e "02_trim/${dataset}.2.fastq.gz" ]] ; then
-    reads="coupled"
-    reads_file="${reads_file},02_trim/${dataset}.2.fastq.gz"
-  fi
+  perl -pe 's/^>/>'$name':/' < "$genome"
+done > 07_derep/${dataset}/representatives.fna
 
-  # Run ANIr at different thresholds. Note that only the first
-  # will run bowtie, all subsequent calls will simply reread the
-  # SAM file produced by the first one.
-  for identity in 90 95 97.5 ; do
-    anir.rb -g "$genome" -r "$reads_file" --r-type "$reads" --r-format fastq \
-      -m "$dir/${name}.sam" -t 12 -a fix -i "$identity" \
-      -L "$dir/${name}.identity.txt" \
+# Determine query settings
+reads="single"
+reads_file="02_trim/${dataset}.1.fastq.gz"
+if [[ -e "02_trim/${dataset}.2.fastq.gz" ]] ; then
+  reads="coupled"
+  reads_file="${reads_file},02_trim/${dataset}.2.fastq.gz"
+fi
+
+# Run base ANIr to generate SAM file
+anir.rb -g "07_derep/${dataset}/representatives.fna" \
+  -r "$reads_file" --r-type "$reads" --r-format fastq \
+  -m "$dir/map.sam" -t 12 -a fix -i 90
+
+# Compress to BAM and sort it
+samtools view -b "$dir/map.sam" -@ 12 \
+  | samtools sort -@ 12 -o "$dir/map.bam" -
+rm "$dir/map.sam"
+
+# Run ANIr for each genome
+for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
+  # Run ANIr at different identity thresholds
+  for identity in 97.5 95 90 ; do
+    anir.rb -g "$genome" -m "$dir/${name}.bam" --m-format bam \
+      -t 12 -a fix -i "$identity" -L "$dir/${name}.identity.txt" \
       --tab "$dir/${name}.anir-${identity}.tsv"
   done
-
-  # Compress to BAM and sort it
-  samtools view -b "$dir/${name}.sam" -@ 12 \
-    | samtools sort -@ 12 -o "$dir/${name}.bam" -
 done
 
 for i in $dir/*.anir-95.txt ; do
