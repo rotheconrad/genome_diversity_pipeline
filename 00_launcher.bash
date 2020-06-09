@@ -62,7 +62,7 @@ function launch_step_05 {
   # Determine time and RAM
   S03=$(size_03 "$dataset")
   RAM_G=$(arithm "3+0.2*$S03/1e9")
-  TIME_H=$(arithm "3+1.5*$S03/1e9")
+  TIME_H=$(arithm "3+2*$S03/1e9")
 
   # Launch
   qsub "$pkg/00_launcher.pbs" -N "GD05-$dataset" \
