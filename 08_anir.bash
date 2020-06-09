@@ -47,7 +47,7 @@ rm "$dir/map.sam"
 for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
   # Run ANIr at different identity thresholds
   for identity in 97.5 95 90 ; do
-    anir.rb -g "$genome" -m "$dir/${name}.bam" --m-format bam \
+    anir.rb -g "$genome" -m "$dir/map.bam" --m-format bam \
       -t 12 -a fix -i "$identity" -L "$dir/${name}.identity.txt" \
       --tab "$dir/${name}.anir-${identity}.tsv"
   done
