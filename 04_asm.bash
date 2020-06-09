@@ -41,7 +41,8 @@ function subsample_coupled {
   local input=$1
   local output=$2
   if do_subsample ; then
-    perc="$(perl -e "print $USE_FRACTION*100")"
+    perc="$(perl -e "print int($USE_FRACTION*100)")"
+    [[ "$perc" -eq 0 ]] && perc=1
     echo "Subsampling at $perc%"
     Fasta_subsample_interleaved_v3.py -i "$input" -o "$output" -s "$perc"
     mv "${output}_sbsmpl"*.fa "$output"
