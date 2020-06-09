@@ -28,6 +28,7 @@ function subsample_single {
   local input=$1
   local output=$2
   if do_subsample ; then
+    echo "Subsampling at $USE_FRACTION"
     FastA.sample.rb -i "$input" -o "$output" -f "$USE_FRACTION"
   else
     ln "$input" "$output"
@@ -40,7 +41,8 @@ function subsample_coupled {
   local input=$1
   local output=$2
   if do_subsample ; then
-    perc="$(perl -e print $USE_FRACTION*100)"
+    perc="$(perl -e "print $USE_FRACTION*100")"
+    echo "Subsampling at $perc%"
     Fasta_subsample_interleaved_v3.py -i "$input" -o "$output" -s "$perc"
     mv "${output}_sbsmpl"*.fa "$output"
   else
