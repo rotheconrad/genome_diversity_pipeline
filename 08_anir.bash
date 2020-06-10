@@ -22,8 +22,10 @@ mkdir -p "$dir"
 # Compile database
 for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
   name=$(basename "$genome" .LargeContigs.fna)
-  perl -pe 's/^>/>'$name':/' < "$genome"
-done > 07_derep/${dataset}/representatives.fna
+  perl -pe 's/^>/>'$name':/' < "$genome" > "${genome}.tag"
+done
+cat 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag \
+  > 07_derep/${dataset}/representatives.fna
 
 # Determine query settings
 reads="single"
@@ -44,13 +46,15 @@ samtools view -b "$dir/map.sam" -@ 12 \
 rm "$dir/map.sam"
 
 # Run ANIr for each genome
-for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna ; do
+for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag ; do
+  name=$(basename "$genome" .LargeContigs.fna.tag)
   # Run ANIr at different identity thresholds
   for identity in 97.5 95 90 ; do
     anir.rb -g "$genome" -m "$dir/map.bam" --m-format bam \
       -t 12 -a fix -i "$identity" -L "$dir/${name}.identity.txt" \
       --tab "$dir/${name}.anir-${identity}.tsv"
   done
+  rm "$genome"
 done
 
 for i in $dir/*.anir-95.txt ; do
