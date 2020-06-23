@@ -46,19 +46,25 @@ samtools view -b "$dir/map.sam" -@ 12 \
 rm "$dir/map.sam"
 
 # Run ANIr for each genome
-for genome in 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag ; do
+function anir_for_genome {
+  local genome=$1
+  local identity=$2
   name=$(basename "$genome" .LargeContigs.fna.tag)
-  # Run ANIr at different identity thresholds
-  for identity in 97.5 95 90 ; do
-    anir.rb -g "$genome" -m "$dir/map.bam" --m-format bam \
-      -t 12 -a fix -i "$identity" -L "$dir/${name}.identity.txt" \
-      --tab "$dir/${name}.anir-${identity}.tsv"
-  done
-  rm "$genome"
-done
+  anir.rb -g "$genome" -m "$dir/map.bam" --m-format bam \
+    -t 12 -a fix -i "$identity" \
+    -L "$dir/${name}.identity-${identity}.txt" \
+    --tab "$dir/${name}.anir-${identity}.tsv"
+}
+export -f anir_for_genome
+parallel -j 12 anir_for_genome \
+  ::: 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag \
+  ::: 97.5 95 90
+rm 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag
+rm "$dir"/*.identity-97.5.txt
+rm "$dir"/*.identity-95.txt
 
-for i in $dir/*.anir-95.txt ; do
-  echo -e "$(basename "$i" .anir-95.txt)\t$(tail -n 1 "$i")"
+for i in $dir/*.anir-95.tsv ; do
+  echo -e "$(basename "$i" .anir-95.tsv)\t$(tail -n 1 "$i")"
 done > $dir/anir-95.tsv
 
 # Launch next step
