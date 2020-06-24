@@ -63,6 +63,17 @@ rm 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag
 rm "$dir"/*.identity-97.5.txt
 rm "$dir"/*.identity-95.txt
 
+# Build BCF files
+for i in 90 95 97.5 ; do
+  sam.filter.rb -m "$dir/map.bam" --m-format bam -i "$i" \
+    | samtools view -b - -@ 12 \
+    | samtools sort -@ 12 - \
+    | bcftools mpileup -Ob -I -f "07_derep/${dataset}/representatives.fna" - \
+    | bcftools call -mv -v -Ob --ploidy 1 \
+    | bcftools filter -i'QUAL>15' -Ob -o "$dir/map-${i}.bcf"
+done
+
+# Summary of ANIr at 95% identity threshold
 for i in $dir/*.anir-95.tsv ; do
   echo -e "$(basename "$i" .anir-95.tsv)\t$(tail -n 1 "$i")"
 done > $dir/anir-95.tsv
