@@ -70,7 +70,7 @@ for i in 90 95 97.5 ; do
     | samtools sort -@ 12 - \
     | bcftools mpileup -Ob -I -f "07_derep/${dataset}/representatives.fna" - \
     | bcftools call -mv -v -Ob --ploidy 1 \
-    | bcftools filter -i'QUAL>15' -Ob -o "$dir/map-${i}.bcf"
+    | bcftools filter -i'QUAL>15 && DP>5' -Ob -o "$dir/map-${i}.bcf"
 done
 
 # Summary of ANIr at 95% identity threshold
