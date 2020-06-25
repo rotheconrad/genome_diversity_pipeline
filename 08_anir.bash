@@ -47,8 +47,9 @@ rm "$dir/map.sam"
 
 # Run ANIr for each genome
 function anir_for_genome {
-  local genome=$1
-  local identity=$2
+  local dir=$1
+  local genome=$2
+  local identity=$3
   name=$(basename "$genome" .LargeContigs.fna.tag)
   anir.rb -g "$genome" -m "$dir/map.bam" --m-format bam \
     -t 12 -a fix -i "$identity" \
@@ -56,7 +57,7 @@ function anir_for_genome {
     --tab "$dir/${name}.anir-${identity}.tsv"
 }
 export -f anir_for_genome
-parallel -j 12 anir_for_genome \
+parallel -j 12 anir_for_genome "$dir" {} {} \
   ::: 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag \
   ::: 97.5 95 90
 rm 07_derep/${dataset}/representatives/*.LargeContigs.fna.tag
