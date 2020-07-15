@@ -68,7 +68,7 @@ done
 for i in 0[23]_*/"$dataset".2.fastq.gz.fa_tmp ; do
   [[ -s "$i" ]] || continue
   d=$(dirname "$i")
-  FastA.interpose.pl "$d/${dataset}.coupled.fa" \
+  FastA.interpose.pl -T 0 "$d/${dataset}.coupled.fa" \
     "$d/${dataset}".[12].fastq.gz.fa_tmp
   rm "$d/${dataset}".[12].fastq.gz.fa_tmp
 done
