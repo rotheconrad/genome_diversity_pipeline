@@ -42,8 +42,8 @@ anir.rb -g "07_derep/${dataset}/representatives.fna" \
 
 # Compress to BAM and sort it
 samtools view -b "$dir/map.sam" -@ 12 \
-  | samtools sort -l 9 -@ 11 -o "$dir/map.bam" -
-rm "$dir/map.sam"
+  | samtools sort -l 9 -@ 11 -o "$dir/map.bam" - \
+  && rm "$dir/map.sam"
 
 # Run ANIr for each genome
 function anir_for_genome {

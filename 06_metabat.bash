@@ -22,9 +22,9 @@ for asm in trim norm ; do
   mkdir -p "$dir"
   # sam -> bam
   if [[ ! -s "${out}.bam" ]] ; then
-    samtools view -@ 11 -S -b \
+    samtools view -b -@ 11 \
       "05_maxbin/${dataset}-${asm}.d/${dataset}-${asm}.sam0" \
-      | samtools sort -@ 11 -l 9 -o "$out" - \
+      | samtools sort -@ 11 -l 9 -o "${out}.bam" - \
       && rm "05_maxbin/${dataset}-${asm}.d/${dataset}-${asm}.sam0"
   fi
   # depths
