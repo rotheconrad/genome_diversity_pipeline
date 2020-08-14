@@ -15,6 +15,7 @@ if [[ ! -n $target ]] ; then
 fi
 
 . "$pkg/00_env.bash"
+. "$pkg/00_sizes.bash"
 "$pkg/00_build.bash" "$target"
 cd "$target"
 
