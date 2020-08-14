@@ -31,7 +31,7 @@ for dataset in $datasets ; do
     next_step="Complete"
   else
     next_step="Next step: $next_step"
-  end
+  fi
 
   echo -e "$(tput setaf 2)${dataset}:$(tput sgr 0) $next_step"
 done
