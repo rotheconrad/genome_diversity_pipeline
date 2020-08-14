@@ -25,15 +25,13 @@ if [[ ! -n $datasets ]] ; then
 fi
 
 for dataset in $datasets ; do
-  echo $dataset
-
   # Determine the next step
   next_step=$(next_step "$dataset")
+  if [[ "$next_step" == "XX" ]] ; then
+    next_step="Complete"
+  else
+    next_step="Next step: $next_step"
+  end
 
-  # And launch it
-  case "$next_step" in
-    XX) echo "Workflow complete for $dataset" ;;
-    01) echo "Empty dataset $dataset, run 01_add.bash first" ;;
-    *)  "$pkg/00_launcher.bash" . "$dataset" "$next_step" ;;
-  esac
+  echo -e "$(tput setaf 2)${dataset}:$(tput sgr 0) $next_step"
 done

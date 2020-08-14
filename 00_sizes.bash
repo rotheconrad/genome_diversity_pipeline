@@ -60,3 +60,29 @@ function run_stats {
   echo -e "$mem\t$wallt\t$cput"
 }
 
+function next_step {
+  local dataset=$1
+  
+  if [[ ! -s "01_reads/${dataset}.1.fastq.gz" ]] ; then
+    next_step=01
+  elif [[ ! -s "02_trim/${dataset}.1.fastq.gz" ]] ; then
+    next_step=02
+  elif [[ ! -s "03_norm/${dataset}.1.fastq.gz" ]] ; then
+    next_step=03
+  elif [[ ! -s "04_asm/${dataset}-norm.LargeContigs.fna" ]] ; then
+    next_step=04
+  elif [[ ! -s "05_maxbin/${dataset}-norm.d/${dataset}-norm.summary" ]] ; then
+    next_step=05
+  elif [[ ! -s "06_metabat/${dataset}-norm.d/${dataset}-norm.1.fa" ]] ; then
+    next_step=06
+  elif [[ ! -s "07_derep/${dataset}/genomospecies.tsv" ]] ; then
+    next_step=07
+  elif [[ ! -s "08_anir/${dataset}/anir-95.tsv" ]] ; then
+    next_step=08
+  else
+    next_step=XX
+  fi
+
+  echo $next_step
+}
+
