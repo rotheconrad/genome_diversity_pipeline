@@ -95,7 +95,7 @@ function launch_step_07 {
   N05=$(ls 05_maxbin/${dataset}-*.d/*.fasta 2>/dev/null | wc -l)
   N06=$(ls 06_metabat/${dataset}-*.d/*.fa 2>/dev/null | wc -l)
   RAM_G=$(arithm "1+($N05+$N06)/1e3")
-  TIME_H=$(arithm "6+4*($N05+$N06)/1e3")
+  TIME_H=$(arithm "12+8*($N05+$N06)/1e3")
 
   qsub "$pkg/00_launcher.pbs" -N "GD07-$dataset" \
     -v "PKG=$pkg,TARGET=$PWD,DATASET=$dataset,STEP=07_derep" \
