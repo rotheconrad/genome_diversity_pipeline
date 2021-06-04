@@ -2,38 +2,41 @@ name: genome_diversity
 
 dependencies:
   # General-purpose
-  - r-base>=3.6
-  - conda-forge::ruby
-  - sqlite
-  - openjdk
+  - r-base>=3.6 #conda-forge
+  - conda-forge::ruby=2.7.2 #conda-forge
+  # Need python for the subsampling script.
+  - python=3.7.1 #anaconda - I think this is the default channel
+  - sqlite=3.35.4 #anaconda
+  - openjdk=11.09.1 #conda-forge
 
   # Read processing
-  - faqcs
-  - falco
-  - seqtk
-  - fastp
-  - idba
+  - faqcs=2.10 #bioconda
+  - falco=0.2.4 #bioconda
+  - seqtk=1.3 #bioconda
+  - fastp=0.20.1 #bioconda
+  - idba=1.1.3 #bioconda
 
   # Assembly processing
-  - hmmer
-  - bedtools
-  - prodigal
-  - barrnap
-  - krona
+  - hmmer=3.3.2 #bioconda
+  - bedtools=2.30.0 #bioconda
+  - prodigal=2.6.3 #bioconda
+  - barrnap=0.9 #bioconda
+  - krona=2.7.1 #bioconda
 
   # Distances
-  - blast
-  - mcl
-  - diamond
-  - fastani
+  - blast=2.11.0 #bioconda
+  - mcl=14.137 #bioconda
+  - diamond=2.0.9 #bionconda
+  - fastani=1.32 #bionconda
 
   # TODO: Still missing
-  # - bbtools
-  # - maxbin
-  # - metabat
-  # - samtools
-  # - bcftools
-  # - parallel
+  - bbmap=38.90 #bionconda # this should include bbtools
+  - maxbin2=2.2.7 #bionconda
+  - metabat2=2.15 #bionconda
+  - vamb=3.0.2 #bionconda
+  - samtools=1.12 #bionconda
+  - bcftools=1.12 #bionconda
+  - parallel=20210422 #conda-forge
 
 channels:
   - conda-forge
