@@ -15,7 +15,8 @@ if [[ $GDIV_ENV != 4 ]] ; then
     ln -s "$GDIV_CONDA" "$HOME/.conda/envs/genome_diversity"
   fi
   source activate genome_diversity
-  shared3="$HOME/shared3"
+  #shared3="$HOME/shared3"
+  shared3="/storage/coda1/p-ktk3/0/shared/rich_project_bio-konstantinidis/shared3"
   # Add standard group tools to the path
   export PATH="$shared3/miga/bin:$PATH"
   export PATH="$shared3/apps/enveomics/Scripts:$shared3/bin:$PATH"
