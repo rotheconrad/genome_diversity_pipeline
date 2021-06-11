@@ -13,10 +13,12 @@ if [[ ! -n $target || ! -n $dataset ]] ; then
   exit 0
 fi
 
-. "$pkg/00_env.bash"
+# We don't need the genome_diversity_pipeline environment for this one
+#. "$pkg/00_env.bash"
 cd "$target"
 
 dir="07_derep/$dataset"
+
 miga new -P "$dir" -t genomes
 miga add -P "$dir" -t popgenome -i assembly \
   -R '^(?:.*\/)?(.+?)(?i:\.f[nastq]+)?$' \
@@ -24,8 +26,11 @@ miga add -P "$dir" -t popgenome -i assembly \
 miga add -P "$dir" -t popgenome -i assembly \
   -R '^(?:.*\/)?(.+?)(?i:\.f[nastq]+)?$' \
   --prefix metabat_ -v 06_metabat/"$dataset"-*/*.fa
-miga derep_wf -o "$dir" --fast -j 12 -t 1 -v \
-  --daemon "$HOME/shared3/miga-conf/daemon_bash.json"
+
+miga derep_wf -o "$dir" --fast -j 12 -t 1 -v 
+
+# load miga environment to run this ruby script.
+eval "$(miga env)"
 "$pkg/scripts/07_01_gsp_qual.rb" "$dir" > "$dir/method_qual.tsv"
 
 # Launch next step
