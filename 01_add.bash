@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# pass in directories and files input from the command line
 target=$1
 dataset=$2
 file1=$3
 file2=$4
+# get the link to this script
 scr=$(readlink -f "$0" 2>/dev/null)
+# get the directory this script is stored in
 pkg=$(dirname "$scr")
 
 if [[ ! -n $target || ! -n $dataset || ! -n $file1 ]] ; then

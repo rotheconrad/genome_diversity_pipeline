@@ -43,9 +43,11 @@ function launch_step_04 {
   S02=$(size_02 "$dataset")
   TIME_H=$(arithm "6+$S02*4/1e9")
   USE_FRACTION=1
-  if [[ $RAM_G -gt 500 ]] ; then
-    USE_FRACTION=$(perl -e "print 500/$RAM_G") # <- Hoping it's linear!
-    RAM_G=500 # <- That's the maximum we have
+  # New PACE Phoenix MAX RAM nodes
+  # Set 700 to max available RAM for your server
+  if [[ $RAM_G -gt 700 ]] ; then
+    USE_FRACTION=$(perl -e "print 700/$RAM_G") # <- Hoping it's linear!
+    RAM_G=700 # <- That's the maximum we have
   fi
 
   # Launch

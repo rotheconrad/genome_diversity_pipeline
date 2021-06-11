@@ -28,10 +28,10 @@ for asm in trim norm ; do
       && rm "05_maxbin/${dataset}-${asm}.d/${dataset}-${asm}.sam0"
   fi
   # depths
-  "$HOME/shared3/apps/metabat/jgi_summarize_bam_contig_depths" \
+  jgi_summarize_bam_contig_depths \
     --outputDepth "${out}.abd" "${out}.bam"
   # binning
-  "$HOME/shared3/apps/metabat/metabat2" \
+  metabat2 \
     -i "04_asm/${dataset}-${asm}.LargeContigs.fna" \
     -a "${out}.abd" \
     -o "$out" \
