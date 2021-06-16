@@ -114,5 +114,7 @@ for i in 0[23]*_*/"$dataset".*.fa ; do
   rm "${dir}.fa"
 done
 
-# Launch next step
-"$pkg/00_launcher.bash" . "$dataset" 05
+# If successful, Launch next step
+if [[ -s "${base}.LargeContigs.fna" ]] ; then
+  "$pkg/00_launcher.bash" . "$dataset" 05
+fi
