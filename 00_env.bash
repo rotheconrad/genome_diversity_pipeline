@@ -13,7 +13,7 @@ if [[ $GDIV_ENV != 4 ]] ; then
   # Server dependent module.
   # Need conda loaded with miniconda or anaconda
   module purge 
-  module load anaconda3/2019.03 &>/dev/null
+  module load anaconda3/2020.02 &>/dev/null
 
   ###############################################################################
   # Sever dependent - need link to servers conda install of genome div yaml
