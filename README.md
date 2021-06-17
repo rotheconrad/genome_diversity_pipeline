@@ -11,6 +11,7 @@ git clone https://github.com/lmrodriguezr/genome_diversity_pipeline.git
 1. *MiGA must be installed and available in PATH: https://manual.microbial-genomes.org/ ... On GATECH PACE server, if you have not previously done so, run: ~/shared-p/miga-conf/init.bash*
 2. *Enveomics package must be installed and available in PATH: http://enve-omics.ce.gatech.edu/enveomics/download*
 3. *Adjust the maximum RAM available lines 47-50 in 00_launcher.bash*
+4. *Adjust conda module in line 8 of 00_env.bash*
 
 ##### Conda environment installation
 

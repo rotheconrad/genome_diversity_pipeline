@@ -2,14 +2,6 @@
 
 if [[ $GDIV_ENV != 4 ]] ; then
 
-  # Covered by conda - No longer needed
-  #module load idba/1.1.1_kMSS
-  #module load R/3.6.0
-  #module load bowtie2/2.3.2
-  #module load hmmer/3.1b1
-  #module load open64/4.5.2
-  #module load gnuparallel/20180822
-
   # Server dependent module.
   # Need conda loaded with miniconda or anaconda
   module purge 
@@ -29,7 +21,7 @@ if [[ $GDIV_ENV != 4 ]] ; then
   ##############################################################################
   # I think we should just have this as a requirement for users to have
   # in there path. Makes it easier to transfer pipeline to a different
-  # server right?
+  # server right? Enveomics and MiGA.
   #shared3="$HOME/shared3"
   # added Phoenix absolute path above
   # Add standard group tools to the path
