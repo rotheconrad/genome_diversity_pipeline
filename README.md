@@ -33,6 +33,7 @@ conda env create --prefix /path_to/shared/conda_envs -f genome_diversity_pipelin
 ```
 
 This will automatically copy and launch the pipeline step by step.
+*fastq files should be gzipped.*
 
 
 #### If you want to continue a halted run:
